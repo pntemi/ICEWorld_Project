@@ -24,13 +24,16 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
+//import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.layout.ColumnSpec;
+//import com.jgoodies.forms.layout.RowSpec;
+//import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JLayeredPane;
 import java.awt.Component;
 import java.awt.SystemColor;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.swing.JPasswordField;
 
 
@@ -58,19 +61,21 @@ public class ICEPort {
 
 	/**
 	 * Create the application.
+	 * @throws MalformedURLException 
 	 */
-	public ICEPort() {
+	public ICEPort() throws MalformedURLException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws MalformedURLException 
 	 */
-	private void initialize() {
+	private void initialize() throws MalformedURLException{
 		frmIceWorld = new JFrame();
 		frmIceWorld.setTitle("ICE World");
 		frmIceWorld.setBounds(100, 100, 850, 500);
-		frmIceWorld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIceWorld.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmIceWorld.setJMenuBar(menuBar);
@@ -79,6 +84,19 @@ public class ICEPort {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmNewWindow = new JMenuItem("New window");
+		mntmNewWindow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				ICEPort window = null;
+				try {
+					window = new ICEPort();
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				window.frmIceWorld.setVisible(true);
+			}
+		});
 		mnFile.add(mntmNewWindow);
 		
 		JSeparator separator = new JSeparator();
@@ -155,12 +173,12 @@ public class ICEPort {
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("Location of the image file."));
+		lblNewLabel.setIcon(new ImageIcon(new URL("https://github.com/nichada/Project/blob/master/ice1.png?raw=true")));
 		lblNewLabel.setBounds(40, 102, 180, 238);
 		panel_1.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("Location of the image file."));
+		lblNewLabel_1.setIcon(new ImageIcon(new URL("https://github.com/nichada/Project/blob/master/ice2.png?raw=true")));
 		lblNewLabel_1.setBounds(614, 102, 174, 238);
 		panel_1.add(lblNewLabel_1);
 	}
