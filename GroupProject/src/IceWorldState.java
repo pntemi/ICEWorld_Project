@@ -1,3 +1,5 @@
+import iceworld.given.MyIcetizen;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import org.json.simple.JSONValue;
 public class IceWorldState {
 	protected String timeStamp;
 	protected String weather;
-	protected ArrayList<Icetizen> onlineUser;
+	protected ArrayList<MyIcetizen> onlineUser;
 	protected ICEWorldPeek peek = new ICEWorldPeek();
 	
 	public IceWorldState(){

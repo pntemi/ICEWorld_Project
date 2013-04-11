@@ -3,15 +3,12 @@ import iceworld.given.MyIcetizen;
 
 
 public class Icetizen implements MyIcetizen {
-
 	int icePortID;
 	IcetizenLook look;
-	int listenPort;
+	int listeningPort;
 	String username;
+	String timeStamp;
 	
-	int port;
-	
-	int iceportID;
 	
 	@Override
 	public int getIcePortID() {
@@ -29,7 +26,7 @@ public class Icetizen implements MyIcetizen {
 	@Override
 	public int getListeningPort() {
 		// TODO Auto-generated method stub
-		return port;
+		return listeningPort;
 	}
 
 	@Override
@@ -37,30 +34,38 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		return username;
 	}
+	
+	public String getTimeStamp(){
+		return timeStamp;
+	}
 
 	@Override
-	public void setIcePortID(int arg0) {
+	public void setIcePortID(int icePortID) {
 		// TODO Auto-generated method stub
-		icePortID = arg0;
+		this.icePortID = icePortID;
 		
 	}
 
 	@Override
-	public void setIcetizenLook(IcetizenLook arg0) {
-		look = arg0;
+	public void setIcetizenLook(IcetizenLook look) {
+		this.look = look;
 		
 	}
 
 	@Override
-	public void setListeningPort(int arg0) {
+	public void setListeningPort(int port) {
 		// TODO Auto-generated method stub
-		listenPort=arg0;
+		listeningPort=port;
 	}
 
 	@Override
 	public void setUsername(String arg0) {
 		// TODO Auto-generated method stub
 		username=arg0;
+	}
+	
+	public void setTimeStamp(String timeStamp){
+		this.timeStamp = timeStamp;
 	}
 
 }

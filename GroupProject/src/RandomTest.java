@@ -1,3 +1,4 @@
+import java.awt.RenderingHints.Key;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.json.simple.JSONObject;
@@ -36,7 +38,20 @@ public class RandomTest {
 			e.printStackTrace();
 		}
 		System.out.println(response);
-		//JSONValue value = new JSONValue();
+		JSONParser test = new JSONParser();
+		JSONObject test2 = (JSONObject) test.parse(response);
+		System.out.println("Now JSON:"+test2);
+		Set set =  test2.keySet();
+		System.out.println("Key is :"+set);
+		System.out.println("Status is:"+test2.get("status"));
+		
+		JSONObject data = (JSONObject) test2.get("data");
+	
+		Set setData = data.keySet();
+		System.out.println("Key in data:"+setData);
+		
+		/*JSONValue value = new JSONValue();
+		 * 
 		JSONObject data = (JSONObject) JSONValue.parse(response);
 		System.out.print("1");
 		JSONObject one = (JSONObject) data.get("data");
@@ -45,97 +60,6 @@ public class RandomTest {
 		System.out.print("3");
 		String three = (String)two.get("condition");
 		System.out.println(three);
+		*/
 	}
 }
-/*class ParseContext {
-
-    private Map<String, List<String>> contentMap;
-
-    private String currentKey;
-    private List<String> currentList;
-
-    private boolean continueParsing = true;
-    private ParseState state = new StartParseState();
-
-    public Map<String, List<String>> parseContent(String content) {
-        StringTokenizer tokenizer = new StringTokenizer(content, "{}:,", true);
-        while (continueParsing) {
-            state.parse(tokenizer);
-        }
-        System.out.println("1");
-        return contentMap;
-    }
-
-    interface ParseState {
-        void parse(StringTokenizer tokenizer);
-    }
-
-    class StartParseState implements ParseState {
-        @Override
-        public void parse(StringTokenizer tokenizer) {
-        	System.out.println("2");
-        	while (tokenizer.hasMoreTokens()) {
-                String token = tokenizer.nextToken();
-                if (!"data".equals(token)) {
-                    continue;
-                }else if(!"icetizen".equals(token)){
-                	continue;
-                }
-
-                contentMap = new LinkedHashMap<String, List<String>>();
-
-                tokenizer.nextToken();
-                tokenizer.nextToken();
-
-                state = new KeyParseState();
-                break;
-            }
-        }
-    }
-
-    class KeyParseState implements ParseState {
-        @Override
-        public void parse(StringTokenizer tokenizer) {
-        	System.out.println("3");
-            if (tokenizer.hasMoreTokens()) {
-                String token = tokenizer.nextToken();
-                if (",".equals(token)) {
-                    token = tokenizer.nextToken();
-                }
-                if ("}".equals(token)) {
-                    state = new EndParseState();
-                    return;
-                }
-                currentKey = token;
-                tokenizer.nextToken();
-                state = new ListParseState();
-            }
-        }
-    }
-
-    class ListParseState implements ParseState {
-        @Override
-        public void parse(StringTokenizer tokenizer) {
-        	System.out.println("4");
-        	currentList = new ArrayList<String>();
-            while (tokenizer.hasMoreTokens()) {
-                String token = tokenizer.nextToken();
-                if ("}".equals(token)) {
-                    break;
-                }
-                if (":".equals(token)) {
-                    currentList.add(tokenizer.nextToken());
-                }
-            }
-            contentMap.put(currentKey, currentList);
-            state = new KeyParseState();
-        }
-    }
-
-    class EndParseState implements ParseState {
-        @Override
-        public void parse(StringTokenizer tokenizer) {
-            continueParsing = false;
-        }
-    }
-}*/
