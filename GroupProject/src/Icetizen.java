@@ -9,13 +9,15 @@ public class Icetizen implements MyIcetizen {
 	int icePortID;
 	IcetizenLook look;
 	int listeningPort;
-	Long timeStamp;
+	long timeStamp;
 	Point location;
+	String ip;
+	long type;
 	
 	@Override
 	public int getIcePortID() {
 		// TODO Auto-generated method stub
-		return icePortID;
+		return (int)icePortID;
 				
 	}
 
@@ -45,11 +47,16 @@ public class Icetizen implements MyIcetizen {
 		return location;
 	}
 	
-	
+	public String getIP(){
+		return ip;
+	}
+	public long getType(){
+		return type;
+	}
 	@Override
-	public void setIcePortID(int icePortID) {
+	public void setIcePortID(int l) {
 		// TODO Auto-generated method stub
-		this.icePortID = icePortID;
+		this.icePortID = l;
 		
 	}
 
@@ -79,4 +86,10 @@ public class Icetizen implements MyIcetizen {
 		this.location = p;
 	}
 	
+	public void setIP(String ip){
+		this.ip = ip;
+	}
+	public void setType(long type){
+		this.type = type;
+	}
 }

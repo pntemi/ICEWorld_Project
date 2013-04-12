@@ -3,4 +3,7 @@
 <fullyQualifiedTypeName name="iceworld.given.MyIcetizen"/>
 <fullyQualifiedTypeName name="java.awt.RenderingHints.Key"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="org.json.simple.parser.JSONParser"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
 </qualifiedTypeNameHistroy>
