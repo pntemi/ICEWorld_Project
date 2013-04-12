@@ -27,7 +27,7 @@ public class ICEWorldPeek{
 		}
 		return connect;
 	}
-	public String getResponse(){
+	public static String getResponse(){
 		URL myURL = null; 
 		Scanner kb = new Scanner(System.in);
 		System.out.print("Enter the request: ");
@@ -65,7 +65,7 @@ public class ICEWorldPeek{
 		return getResponse(myURL);
 	}
 	
-	protected String getResponse(URL myURL){
+	public static String getResponse(URL myURL){
 		String inputLine = "";
 		try{
 			URLConnection conn = myURL.openConnection();
@@ -88,7 +88,7 @@ public class ICEWorldPeek{
 				System.out.println("-----------------------------");
 				System.out.println("ICE World is reachable");
 				System.out.println("-----------------------------");
-				System.out.println("Response: "+peek.getResponse());
+				System.out.println("Response: "+getResponse());
 				System.out.println("-----------------------------");
 			}
 		}catch(NullPointerException e){}

@@ -61,19 +61,16 @@ public class FetchState implements Runnable{
 				Thread.sleep(REFRESH_INTERVAL);
 			}catch(InterruptedException e){}
 			System.out.println("fetching");
-			ICEWorldPeek peek = new ICEWorldPeek();
-			if(peek.isConnected()){
-				try {
+			try{
+				ICEWorldPeek peek = new ICEWorldPeek();
+				if(peek.isConnected()){
 					state.processState();
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println(state.weatherTime);
-				System.out.println(state.weather);
-			}else{
+					System.out.println(state.weatherTime);
+					System.out.println(state.weather);
+				}else{
 				//pop up a model dialog
-			}
+				}
+			}catch(MalformedURLException e){}
 		}
 	}
 	

@@ -5,11 +5,11 @@ import iceworld.given.MyIcetizen;
 
 
 public class Icetizen implements MyIcetizen {
-	String username;
 	int icePortID;
 	IcetizenLook look;
 	int listeningPort;
-	Long timeStamp;
+	String username;
+	String timeStamp;
 	Point location;
 	
 	@Override
@@ -37,15 +37,13 @@ public class Icetizen implements MyIcetizen {
 		return username;
 	}
 	
-	public Long getTimeStamp(){
+	public String getTimeStamp(){
 		return timeStamp;
 	}
 	
 	public Point getLocation(){
 		return location;
 	}
-	
-	
 	@Override
 	public void setIcePortID(int icePortID) {
 		// TODO Auto-generated method stub
@@ -71,12 +69,12 @@ public class Icetizen implements MyIcetizen {
 		username=arg0;
 	}
 	
-	public void setTimeStamp(Long timeStamp){
+	public void setTimeStamp(String timeStamp){
 		this.timeStamp = timeStamp;
 	}
 	
 	public void setLocation(Point p){
 		this.location = p;
 	}
-	
+
 }

@@ -39,24 +39,8 @@ public class IceWorldState {
 		weatherTime = (Long) wther.get("last_change");
 	}
 	public void setOnlineUser(JSONObject user){
-		Set userKey = user.keySet();
-		System.out.println(userKey);
-		Object[] uid = userKey.toArray();
-		for(int i=0;i<uid.length;i++){
-			JSONObject info = (JSONObject)user.get(""+uid[i]);
-			JSONObject ice = (JSONObject)info.get("user");
-			
-			System.out.println(ice.keySet());
-			int type = (int)ice.get("type");
-			MyIcetizen icetizen = null;
-			if(type == 1){
-				icetizen = new Icetizen();
-			}else if(type == 0){
-				icetizen = new Alien();
-			}
-			onlineUser.add(icetizen);
-			
-		}
+		Set key = user.keySet();
+		System.out.println(key);
 	}
 	public void printState(){
 		

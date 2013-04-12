@@ -11,7 +11,8 @@ public class Icetizen implements MyIcetizen {
 	int listeningPort;
 	Long timeStamp;
 	Point location;
-	
+	String talk;
+	String yell;
 	@Override
 	public int getIcePortID() {
 		// TODO Auto-generated method stub
@@ -45,7 +46,12 @@ public class Icetizen implements MyIcetizen {
 		return location;
 	}
 	
-	
+	public String getTalk(){
+		return talk;
+	}
+	public String getYell(){
+		return yell;
+	}
 	@Override
 	public void setIcePortID(int icePortID) {
 		// TODO Auto-generated method stub
@@ -79,4 +85,12 @@ public class Icetizen implements MyIcetizen {
 		this.location = p;
 	}
 	
+	public void setTalk(String talk){
+		this.talk = talk;
+
+	}
+	public void setYell(String yell){
+		this.yell = yell;
+	}
+
 }

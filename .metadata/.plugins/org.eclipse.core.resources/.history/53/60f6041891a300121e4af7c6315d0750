@@ -44,18 +44,8 @@ public class IceWorldState {
 		Object[] uid = userKey.toArray();
 		for(int i=0;i<uid.length;i++){
 			JSONObject info = (JSONObject)user.get(""+uid[i]);
-			JSONObject ice = (JSONObject)info.get("user");
-			
-			System.out.println(ice.keySet());
-			int type = (int)ice.get("type");
-			MyIcetizen icetizen = null;
-			if(type == 1){
-				icetizen = new Icetizen();
-			}else if(type == 0){
-				icetizen = new Alien();
-			}
-			onlineUser.add(icetizen);
-			
+			Set uidKey = info.keySet();
+			System.out.println(uidKey);
 		}
 	}
 	public void printState(){

@@ -79,4 +79,12 @@ public class Icetizen implements MyIcetizen {
 		this.location = p;
 	}
 	
+	public void setTalk(String talk){
+		this.talk = talk;
+
+	}
+	public void setYell(String yell){
+		this.yell = yell;
+	}
+
 }

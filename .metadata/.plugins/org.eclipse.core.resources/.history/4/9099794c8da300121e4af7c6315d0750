@@ -10,15 +10,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 public class IceWorldState {
-	protected Long weatherTime;
+	protected String weatherTime;
 	protected String weather;
 	protected ArrayList<MyIcetizen> onlineUser;
 	
 	
 	public IceWorldState(){
-		this(0L,"",null);
+		this("","",null);
 	}
-	public IceWorldState(Long weatherTime, String weather, ArrayList<MyIcetizen> onlineUser){
+	public IceWorldState(String weatherTime, String weather, ArrayList<MyIcetizen> onlineUser){
 		this.weatherTime = weatherTime;
 		this.weather = weather;
 		this.onlineUser = onlineUser;
@@ -36,27 +36,11 @@ public class IceWorldState {
 	
 	public void setWeather(JSONObject wther){
 		weather = (String) wther.get("condition");
-		weatherTime = (Long) wther.get("last_change");
+		weatherTime = (String) wther.get("last_change");
 	}
 	public void setOnlineUser(JSONObject user){
-		Set userKey = user.keySet();
-		System.out.println(userKey);
-		Object[] uid = userKey.toArray();
-		for(int i=0;i<uid.length;i++){
-			JSONObject info = (JSONObject)user.get(""+uid[i]);
-			JSONObject ice = (JSONObject)info.get("user");
-			
-			System.out.println(ice.keySet());
-			int type = (int)ice.get("type");
-			MyIcetizen icetizen = null;
-			if(type == 1){
-				icetizen = new Icetizen();
-			}else if(type == 0){
-				icetizen = new Alien();
-			}
-			onlineUser.add(icetizen);
-			
-		}
+		Set key = user.keySet();
+		System.out.println(key);
 	}
 	public void printState(){
 		
@@ -64,7 +48,7 @@ public class IceWorldState {
 	public String getWeather(){
 		return weather;
 	}
-	public Long getWeatherTime(){
+	public String getWeatherTime(){
 		return weatherTime;
 	}
 	public ArrayList<MyIcetizen> getOnlineUser(){

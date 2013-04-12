@@ -1,0 +1,50 @@
+import iceworld.given.MyIcetizen;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+public class IceWorldState {
+	protected String weatherTime;
+	protected String weather;
+	protected ArrayList<MyIcetizen> onlineUser;
+	protected ICEWorldPeek peek = new ICEWorldPeek();
+	
+	
+	public IceWorldState(){
+		this("","",null);
+	}
+	public IceWorldState(String weatherTime, String weather, ArrayList<MyIcetizen> onlineUser){
+		this.weatherTime = weatherTime;
+		this.weather = weather;
+		this.onlineUser = onlineUser;
+	}
+	public void processState() throws MalformedURLException {
+		String response = peek.getResponse(new URL("http://iceworld.sls-atl.com/api/&cmd=states"));
+		setWeather(response);
+		setOnlineUser(response);
+	}
+	
+	public void setWeather(String response){
+		
+	}
+	public void setOnlineUser(String response){
+		
+	}
+	public void printState(){
+		
+	}
+	public String getWeather(){
+		return weather;
+	}
+	public String getWeatherTime(){
+		return weatherTime;
+	}
+	public ArrayList<MyIcetizen> getOnlineUser(){
+		return onlineUser;
+	}
+}
