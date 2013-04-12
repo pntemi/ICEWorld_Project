@@ -25,26 +25,17 @@ public class IceWorldState {
 	}
 	public void processState() throws MalformedURLException {
 		String response = peek.getResponse(new URL("http://iceworld.sls-atl.com/api/&cmd=states"));
-		setWeather(response);
-		setOnlineUser(response);
+		setWeather();
+		setOnlineUser();
 	}
 	
-	public void setWeather(String response){
+	public void setWeather(){
 		
 	}
-	public void setOnlineUser(String response){
+	public void setOnlineUser(){
 		
 	}
 	public void printState(){
 		
-	}
-	public String getWeather(){
-		return weather;
-	}
-	public String getWeatherTime(){
-		return weatherTime;
-	}
-	public ArrayList<MyIcetizen> getOnlineUser(){
-		return onlineUser;
 	}
 }
