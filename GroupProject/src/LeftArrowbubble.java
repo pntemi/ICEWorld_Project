@@ -24,83 +24,80 @@ public class LeftArrowbubble extends JPanel {
 	private int arrowSize = 20;
 	private int strokeThickness = 3;
 	private int padding = strokeThickness / 2;
-    private Icetizen a;
-    private static JTextPane text;
-    private static frame;
-    String s;
-    public LeftArrowbubble(){
+	private Icetizen a;
+	private static JTextPane text;
+
+	String s;
+
+	public LeftArrowbubble() {
 	}
-	public LeftArrowbubble(String e){
-		s=e;
+
+	public LeftArrowbubble(String e) {
+		s = e;
 	}
-    
-    @Override
-	
-	
+
+	@Override
 	protected void paintComponent(final Graphics g) {
 		final Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(new Color(0.5f, 0.8f, 1f));
-		int x=this.getWidth()/2;
-		int y=this.getHeight()/2;
-		//int y= (int)a.getTop()+padding;
-		
-		//int x = (int)a.getMiddle();
+		int x = this.getWidth() / 2;
+		int y = this.getHeight() / 2;
+		// int y= (int)a.getTop()+padding;
+
+		// int x = (int)a.getMiddle();
 		Polygon arrow = new Polygon();
 		arrow.addPoint(x, y);
-		arrow.addPoint(x-40, y-50);
-		arrow.addPoint(x+40, y-50);
-		
-		
-		
-//		int width = getWidth() - arrowSize - (strokeThickness * 2);
-//		int bottomLineY = getHeight() - strokeThickness;
-//		g2d.fillRect(x, padding, width, bottomLineY);
-//		g2d.setRenderingHints(new RenderingHints(
-//				RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_ON));
-//		g2d.setStroke(new BasicStroke(strokeThickness));
-//		RoundRectangle2D.Double rect = new RoundRectangle2D.Double(0, 0,
-//				0, 0, 0, 0);
-		
-//		Area area = new Area(rect);
-//		area.add(new Area(arrow));
-		g2d.fillRect(x-200, y-200, 400, 150);
+		arrow.addPoint(x - 40, y - 50);
+		arrow.addPoint(x + 40, y - 50);
+
+		// int width = getWidth() - arrowSize - (strokeThickness * 2);
+		// int bottomLineY = getHeight() - strokeThickness;
+		// g2d.fillRect(x, padding, width, bottomLineY);
+		// g2d.setRenderingHints(new RenderingHints(
+		// RenderingHints.KEY_ANTIALIASING,
+		// RenderingHints.VALUE_ANTIALIAS_ON));
+		// g2d.setStroke(new BasicStroke(strokeThickness));
+		// RoundRectangle2D.Double rect = new RoundRectangle2D.Double(0, 0,
+		// 0, 0, 0, 0);
+
+		// Area area = new Area(rect);
+		// area.add(new Area(arrow));
+		g2d.fillRect(x - 200, y - 200, 400, 150);
 		g2d.fillPolygon(arrow);
 		g2d.setStroke(new BasicStroke(strokeThickness));
-//		g2d.draw(arrow);
+		// g2d.draw(arrow);
 		String s = "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello ";
 		g2d.setColor(Color.BLACK);
-//		g2d.drawString(s, x-190, y-150);
+		// g2d.drawString(s, x-190, y-150);
 		text.setEnabled(false);
-		text.setBounds(x - 190, y-190, 380, 100);
-		text.setPreferredSize(new Dimension(100,100));
+		text.setBounds(x - 190, y - 190, 380, 100);
+		text.setPreferredSize(new Dimension(100, 100));
 	}
-public final static int ONE_SECOND = 5;
-	
-	Timer start = new Timer(ONE_SECOND, new ActionListener() {
-	    public void actionPerformed(ActionEvent evt) {
-	    	JFrame b = new JFrame();
-	    	
-	    
-	    	b.getContentPane().add(a);
-	    	b.setVisible(false);
-	    	b.dispose();
-	    	
-	    }
-		
-	});
 
 	public static void main(String arg[]) {
-		JFrame b = new JFrame();
+		final JFrame  b = new JFrame();
 		b.setSize(500, 500);
-		LeftArrowbubble a=new LeftArrowbubble();
-		//a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		LeftArrowbubble a = new LeftArrowbubble();
+		// a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		b.getContentPane().add(a);
-		text = new JTextPane();	
+		text = new JTextPane();
 		text.setText("hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello ");
 		a.add(text);
 		a.setLayout(null);
 		b.setVisible(true);
+
+		 int delay = 5000;
+		ActionListener taskperform = new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent evt) {
+				b.dispose();
+				
+
+			}
+
+		};
+		new Timer(delay,taskperform).start();
 
 
 	}

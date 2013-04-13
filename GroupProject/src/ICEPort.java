@@ -64,6 +64,7 @@ public class ICEPort {
 	private JPanel panel3;
 	public JTextField username;
 	private JDialog dialog;
+	
 
 	/**
 	 * Launch the application.
@@ -243,6 +244,11 @@ public class ICEPort {
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(22, 60, 66, 14);
 		panel.add(lblPassword);
+		
+		
+		
+		
+	    
 		String password;
 
 		JButton btnLogin = new JButton("Login");

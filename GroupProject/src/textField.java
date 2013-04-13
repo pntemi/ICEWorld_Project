@@ -11,8 +11,9 @@ import javax.swing.text.PlainDocument;
 public class textField extends JFrame {
 	Icetizen tester;
 	JTextField a;
-	public  void main(String[] args) {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		JFrame b = new JFrame();
 		b.setSize(500, 500);
 		  a = new JTextField();
@@ -26,7 +27,7 @@ public class textField extends JFrame {
 		c.add(button);
 		c.add(a);
 		b.getContentPane().add(c);
-		b.setVisible(true);
+ 	    
 
 	}
 
