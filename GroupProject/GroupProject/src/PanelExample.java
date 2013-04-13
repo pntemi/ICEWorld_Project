@@ -5,7 +5,14 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
  
-public class PanelExample {
+public class PanelExample extends JFrame{
+	public PanelExample(){
+		this.setLayout(null);
+		this.setContentPane(new ImagePanel());
+		this.setTitle("Welcome to ICEWorld!");
+		this.setVisible(true);
+		this.pack();
+	}
         private void createAndDisplayGUI() {
                 JFrame frame = new JFrame("Welcome to ICEWorld!");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -64,6 +64,7 @@ public class ICEPort {
 	private JPanel panel3;
 	public JTextField username;
 	private JDialog dialog;
+	
 
 	/**
 	 * Launch the application.
@@ -243,6 +244,11 @@ public class ICEPort {
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(22, 60, 66, 14);
 		panel.add(lblPassword);
+		
+		
+		
+		
+	    
 		String password;
 
 		JButton btnLogin = new JButton("Login");
@@ -318,7 +324,8 @@ public class ICEPort {
 				if(immigration.login(pass)){
 					//log in laew tum arai
 					System.out.println("login to iceworld");
-					
+					PanelExample a = new PanelExample();
+					frmIceWorld.dispose();
 					//System.out.println(immigration.walk(10,10));
 				}
 				else{
@@ -330,6 +337,9 @@ public class ICEPort {
 				if(immigration.loginAlien()){
 					//log in as alien
 					System.out.println("login to iceworld  as alien");
+					PanelExample a = new PanelExample();
+					frmIceWorld.dispose();
+					
 				}else{
 				// log in mai dai 
 					System.out.println("cant login");

@@ -1,23 +1,27 @@
+import java.awt.Point;
+
 import iceworld.given.IcetizenLook;
 import iceworld.given.MyIcetizen;
 
 
 public class Icetizen implements MyIcetizen {
 
+	String username;
 	int icePortID;
 	IcetizenLook look;
-	int listenPort;
-	String username;
+	int listeningPort;
+	long timeStamp;
+	Point location;
+	String ip;
+	long type;
 	
-	int port;
-	
-	int iceportID;
 	
 	@Override
 	public int getIcePortID() {
 		// TODO Auto-generated method stub
 		return icePortID;
-				
+
+
 	}
 
 	@Override
@@ -29,7 +33,7 @@ public class Icetizen implements MyIcetizen {
 	@Override
 	public int getListeningPort() {
 		// TODO Auto-generated method stub
-		return port;
+		return listeningPort;
 	}
 
 	@Override
@@ -37,24 +41,47 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		return username;
 	}
+	
+	
+	
+	public String getIP(){
+		return ip;
+	}
+	public long getType(){
+		return type;
+	}
+	
+	public void setIcePortID(int l) {
+		// TODO Auto-generated method stub
+		this.icePortID = l;
+	}	
+
+
+	public long getTimeStamp(){
+		return timeStamp;
+	}
+
+	public Point getLocation(){
+		return location;
+	}
+	
+
+	
 
 	@Override
-	public void setIcePortID(int arg0) {
-		// TODO Auto-generated method stub
-		icePortID = arg0;
+	public void setIcetizenLook(IcetizenLook look) {
+		this.look = look;
+
 		
+
+
+
 	}
 
 	@Override
-	public void setIcetizenLook(IcetizenLook arg0) {
-		look = arg0;
-		
-	}
-
-	@Override
-	public void setListeningPort(int arg0) {
+	public void setListeningPort(int port) {
 		// TODO Auto-generated method stub
-		listenPort=arg0;
+		listeningPort=port;
 	}
 
 	@Override
@@ -62,5 +89,31 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		username=arg0;
 	}
+
+	
+	public void setTimeStamp(Long timeStamp){
+		this.timeStamp = timeStamp;
+	}
+	
+	public void setLocation(Point p){
+		this.location = p;
+	}
+	
+	public void setIP(String ip){
+		this.ip = ip;
+	}
+	public void setType(long type){
+		this.type = type;
+	}
+
+
+	
+	public double getMiddle(){
+		return 0;
+	}
+	public double getTop(){
+		return 0;
+	}
+
 
 }
