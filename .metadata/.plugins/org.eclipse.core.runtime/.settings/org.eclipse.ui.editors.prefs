@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 AbstractTextEditor.Color.Background=64,64,64
 AbstractTextEditor.Color.Background.SystemDefault=false
 AbstractTextEditor.Color.FindScope=188,173,173
@@ -24,3 +25,7 @@ pydevOccurrenceIndicationColor=97,97,97
 searchResultIndicationColor=70,68,103
 secondaryIPColor=80,80,80
 writeOccurrenceIndicationColor=148,133,103
+=======
+eclipse.preferences.version=1
+overviewRuler_migration=migrated_3.1
+>>>>>>> add new code

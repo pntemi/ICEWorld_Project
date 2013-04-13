@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<<<<<<< HEAD
 <fullyQualifiedTypeName name="iceworld.given.MyIcetizen"/>
 <fullyQualifiedTypeName name="java.awt.RenderingHints.Key"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="org.json.simple.parser.JSONParser"/>
 <fullyQualifiedTypeName name="java.awt.Point"/>
+=======
+<fullyQualifiedTypeName name="javax.swing.JTextPane"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="javax.print.attribute.AttributeSet"/>
+<fullyQualifiedTypeName name="javax.swing.text.BadLocationException"/>
+<fullyQualifiedTypeName name="java.awt.Container"/>
+<fullyQualifiedTypeName name="iceworld.given.ICEWorldImmigration"/>
+>>>>>>> add new code
 </qualifiedTypeNameHistroy>

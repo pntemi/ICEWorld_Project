@@ -5,6 +5,7 @@ import iceworld.given.MyIcetizen;
 
 
 public class Icetizen implements MyIcetizen {
+<<<<<<< HEAD
 	String username;
 	int icePortID;
 	IcetizenLook look;
@@ -19,6 +20,20 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		return (int)icePortID;
 				
+=======
+	int icePortID;
+	IcetizenLook look;
+	int listeningPort;
+	String username;
+	String timeStamp;
+	Point location;
+
+	@Override
+	public int getIcePortID() {
+		// TODO Auto-generated method stub
+		return icePortID;
+
+>>>>>>> add new code
 	}
 
 	@Override
@@ -38,6 +53,7 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		return username;
 	}
+<<<<<<< HEAD
 	
 	public Long getTimeStamp(){
 		return timeStamp;
@@ -58,12 +74,31 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		this.icePortID = l;
 		
+=======
+
+	public String getTimeStamp(){
+		return timeStamp;
+	}
+
+	public Point getLocation(){
+		return location;
+	}
+	@Override
+	public void setIcePortID(int icePortID) {
+		// TODO Auto-generated method stub
+		this.icePortID = icePortID;
+
+>>>>>>> add new code
 	}
 
 	@Override
 	public void setIcetizenLook(IcetizenLook look) {
 		this.look = look;
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> add new code
 	}
 
 	@Override
@@ -77,6 +112,7 @@ public class Icetizen implements MyIcetizen {
 		// TODO Auto-generated method stub
 		username=arg0;
 	}
+<<<<<<< HEAD
 	
 	public void setTimeStamp(Long timeStamp){
 		this.timeStamp = timeStamp;
@@ -92,4 +128,21 @@ public class Icetizen implements MyIcetizen {
 	public void setType(long type){
 		this.type = type;
 	}
+=======
+
+	public void setTimeStamp(String timeStamp){
+		this.timeStamp = timeStamp;
+	}
+
+	public void setLocation(Point p){
+		this.location = p;
+	}
+	public double getMiddle(){
+		return 0;
+	}
+	public double getTop(){
+		return 0;
+	}
+
+>>>>>>> add new code
 }

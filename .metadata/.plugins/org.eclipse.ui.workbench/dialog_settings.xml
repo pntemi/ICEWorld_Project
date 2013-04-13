@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+<<<<<<< HEAD
 	<section name="org.eclipse.ui.internal.QuickAccess">
 		<item value="768" key="dialogWidth"/>
 		<item value="525" key="dialogHeight"/>
+=======
+	<section name="FileSystemImportWizard">
+	</section>
+	<section name="org.eclipse.ui.internal.QuickAccess">
+		<item value="800" key="dialogWidth"/>
+		<item value="500" key="dialogHeight"/>
+>>>>>>> add new code
 		<list key="orderedProviders">
 		</list>
 		<list key="textArray">
@@ -13,8 +21,15 @@
 		</list>
 	</section>
 	<section name="WorkbenchPreferenceDialogSettings">
+<<<<<<< HEAD
 		<item value="8" key="DIALOG_Y_ORIGIN"/>
 		<item value="374" key="DIALOG_X_ORIGIN"/>
+=======
+		<item value="3" key="DIALOG_Y_ORIGIN"/>
+		<item value="203" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="ZipFileImportWizard">
+>>>>>>> add new code
 	</section>
 	<section name="ImportExportAction">
 		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>

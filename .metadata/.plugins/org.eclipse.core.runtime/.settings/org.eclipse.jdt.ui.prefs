@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 content_assist_disabled_computers=org.eclipse.jdt.ui.javaAllProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000
 content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"/>
 content_assist_number_of_computers=21
+=======
+content_assist_disabled_computers=org.eclipse.recommenders.completion.rcp.templates.category\u0000org.eclipse.jdt.ui.javaAllProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.recommenders.completion.rcp.chain.category\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.recommenders.subwords.rcp.category\u0000
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"/>
+content_assist_number_of_computers=22
+>>>>>>> add new code
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
 eclipse.preferences.version=1
 fontPropagated=true
+<<<<<<< HEAD
 java_bracket=255,255,255
 java_comment_task_tag=172,193,172
 java_default=246,243,232
@@ -19,6 +26,8 @@ java_operator=240,239,208
 java_single_line_comment=127,159,127
 java_string=204,147,147
 org.eclipse.jdt.internal.ui.navigator.layout=2
+=======
+>>>>>>> add new code
 org.eclipse.jdt.ui.editor.tab.width=
 org.eclipse.jdt.ui.formatterprofiles.version=12
 org.eclipse.jdt.ui.javadoclocations.migrated=true
@@ -26,6 +35,7 @@ org.eclipse.jdt.ui.text.code_templates_migrated=true
 org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.templates_migrated=true
+<<<<<<< HEAD
 org.eclipse.jface.textfont=1|Courier New|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Courier New;
 pf_coloring_argument=239,239,175
 pf_coloring_assignment=246,243,232
@@ -65,6 +75,10 @@ semanticHighlighting.staticFinalField.enabled=true
 semanticHighlighting.staticMethodInvocation.color=196,196,183
 semanticHighlighting.staticMethodInvocation.enabled=true
 sourceHoverBackgroundColor=161,152,121
+=======
+org.eclipse.jface.textfont=1|Monaco|11.0|0|COCOA|1|;
+proposalOrderMigrated=true
+>>>>>>> add new code
 spelling_locale_initialized=true
 tabWidthPropagated=true
 useAnnotationsPrefPage=true

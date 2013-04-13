@@ -1,0 +1,37 @@
+import javax.swing.text.AttributeSet;
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+public class textField extends JFrame {
+	public class JTextFieldLimit extends PlainDocument  {
+		  private int limit;
+
+		  JTextFieldLimit(int limit) {
+		   super();
+		   this.limit = limit;
+		   }
+
+		  public void insertString( int offset, String  str, AttributeSet attr ) throws BadLocationException {
+		    if (str == null) return;
+
+		    if ((getWidth() + str.length()) <= limit) {
+		      super.insertString(offset, str,  attr);
+		    }
+		  }
+		}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame b = new JFrame();
+		b.setSize(500, 500);
+		JTextField a=new JTextField(3);
+		
+		a.setDocument(new JTextFieldLimit(100));
+		b.getContentPane().add(a);
+		b.setVisible(true);
+		
+
+	}
+	
+
+}

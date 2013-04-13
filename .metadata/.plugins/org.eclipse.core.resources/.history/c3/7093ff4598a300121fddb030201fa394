@@ -1,0 +1,6 @@
+public interface Characters {
+	public double getMiddle();
+
+	public double getTop();
+
+}

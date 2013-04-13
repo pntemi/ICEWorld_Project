@@ -1,0 +1,15 @@
+import javax.swing.*;
+public class textField extends JFrame {
+      JTextField a=new JTextField();
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame b = new JFrame();
+		b.setSize(500, 500);
+		textField a=new textField();
+		//a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		b.getContentPane().add(a);
+      
+	}
+
+}

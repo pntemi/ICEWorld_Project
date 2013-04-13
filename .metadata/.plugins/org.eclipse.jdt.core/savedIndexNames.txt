@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.126+C:\Users\pntemi\Documents\GitHub\ICEWorld_Project\.metadata\.plugins\org.eclipse.jdt.core
 305854171.index
 890962878.index
@@ -17,3 +18,43 @@ INDEX VERSION 1.126+C:\Users\pntemi\Documents\GitHub\ICEWorld_Project\.metadata\
 1115467115.index
 4108727661.index
 4155206848.index
+=======
+INDEX VERSION 1.126+/Users/nich/Documents/ICEWorld_Project/.metadata/.plugins/org.eclipse.jdt.core
+2164169970.index
+3065191867.index
+590838522.index
+765977872.index
+2326659272.index
+3177356979.index
+1291879854.index
+450555687.index
+3573273814.index
+3712507179.index
+2107875670.index
+156905802.index
+2347440961.index
+3954040986.index
+4249315662.index
+3302703152.index
+3321539481.index
+1149009852.index
+1950045529.index
+960027187.index
+705996124.index
+2545238116.index
+572114393.index
+3000285004.index
+3004609673.index
+2704974043.index
+3266567714.index
+3343342931.index
+1384487945.index
+84777399.index
+1819685514.index
+4238209716.index
+770573466.index
+1833648217.index
+1271342938.index
+272178059.index
+3590104812.index
+>>>>>>> add new code

@@ -1,0 +1,27 @@
+import java.awt.Container;
+
+import javax.swing.text.AttributeSet;
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+public class textField extends JFrame {
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame b = new JFrame();
+		b.setSize(500, 500);
+		JTextField a=new JTextField(3);
+		JButton button= new JButton("Enter");
+		Container c = new Container();
+		c.setLayout(null);
+		a.setBounds(0,0,500,100);
+		button.setBounds(4,50,20,20);
+		a.setDocument(new JTextFieldLimit(100));
+		c.add(a);
+		b.getContentPane().add(c);
+		b.setVisible(true);
+	
+	}
+	
+
+}
