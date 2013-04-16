@@ -1,9 +1,12 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 
 import javax.swing.*;
+
+import org.json.simple.parser.ParseException;
 
 public class FetchState implements Runnable{
 	protected IceWorldState state;
@@ -62,26 +65,36 @@ public class FetchState implements Runnable{
 			}catch(InterruptedException e){}
 			System.out.println("fetching");
 			ICEWorldPeek peek = new ICEWorldPeek();
+			long start = System.nanoTime();
 			if(peek.isConnected()){
 				try {
 					state.processState();
+					state.setAction();
 				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println(state.weatherTime);
 				System.out.println(state.weather);
+				//System.out.println(state.latestTime);
+				//System.out.println(state.onlineUser);		
 			}else{
 				//pop up a model dialog
 				JOptionPane.showMessageDialog(new JPanel(), "ICE World cannot be reached");
 			}
+			long end = System.nanoTime();
+			System.out.println("time taken: "+(end-start)/1.0e9);
 		}
 	}
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws MalformedURLException{
 		FetchState test = new FetchState(new IceWorldState());
 		test.init();
 		test.startFetch();
 	}
 	
 }
+
