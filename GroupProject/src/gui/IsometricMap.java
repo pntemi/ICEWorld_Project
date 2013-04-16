@@ -1,10 +1,10 @@
 package gui;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.util.Queue;
 
 import tiles.MatrixPoint;
 import tiles.Tile;
@@ -12,8 +12,8 @@ import utils.MathUtils;
 import addon.Drawable;
 
 public class IsometricMap implements Drawable {
-	public static final int MAP_ROW = 100;
-	public static final int MAP_COLUMN = 100;
+	public static final int MAP_ROW = 20;
+	public static final int MAP_COLUMN = 20;
 	public static final double Z_ROTATION = -MathUtils.DEGREE_45;
 	public static final double COS_ROTATE = Math.cos(-MathUtils.DEGREE_45);
 	public static final double SIN_ROTATE = Math.sin(-MathUtils.DEGREE_45);
@@ -26,6 +26,8 @@ public class IsometricMap implements Drawable {
 	public static final int MOVE_UP = 3;
 	public static final int MOVE_DOWN = 4;
 
+	private GameCanvas gameCanvas;
+
 	private int tile_px = 20;
 	private double tileDistance;
 	private int origin_x = 400;
@@ -36,8 +38,9 @@ public class IsometricMap implements Drawable {
 
 	private Point mousePoint = null;
 
-	public IsometricMap() {
-		// generateBlankMap(MAP_COLUMN, MAP_ROW);
+	public IsometricMap(GameCanvas c) {
+		gameCanvas = c;
+		generateBlankMap(MAP_COLUMN, MAP_ROW);
 	}
 
 	@Override
@@ -86,8 +89,10 @@ public class IsometricMap implements Drawable {
 	}
 
 	private void generateBlankMap(int columns, int rows) {
-		int mapWidth = columns * this.tile_px;
-		int mapHeight = rows * this.tile_px;
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
+		float mapWidth = columns * tilePX;
+		float mapHeight = rows * tilePX;
 		int realWidth = (int) Math.round(mapWidth * Math.sin(Math.PI / 3));
 		int realHeight = (int) Math.round(mapHeight * Math.cos(Math.PI / 3));
 
@@ -105,17 +110,21 @@ public class IsometricMap implements Drawable {
 	}
 
 	public MatrixPoint getMatrixPoint(Point p) {
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
 		double x = X_ADJUSTMENT * (p.x - origin_x);
 		double y = Y_ADJUSTMENT * (p.y - origin_y);
 		double unrealX = x * Math.cos(Z_ROTATION) - y * Math.sin(Z_ROTATION);
 		double unrealY = x * Math.sin(Z_ROTATION) + y * Math.cos(Z_ROTATION);
-		return new MatrixPoint((int) (unrealX / tile_px),
-				(int) (unrealY / tile_px));
+		return new MatrixPoint((int) (unrealX / tilePX),
+				(int) (unrealY / tilePX));
 	}
 
 	public Tile getTile(int column, int row) {
-		int tileX = column * this.tile_px;
-		int tileY = row * this.tile_px;
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
+		float tileX = column * tilePX;
+		float tileY = row * tilePX;
 		int realTileX = origin_x
 				+ (int) Math.round((tileX * Math.cos(-Z_ROTATION) - tileY
 						* Math.sin(-Z_ROTATION))
@@ -124,8 +133,8 @@ public class IsometricMap implements Drawable {
 				+ (int) Math.round((tileX * Math.sin(-Z_ROTATION) + tileY
 						* Math.cos(-Z_ROTATION))
 						/ Y_ADJUSTMENT);
-		int tileRealWidth = (int) Math.round(tile_px * MathUtils.SIN_60);
-		int tileRealHeight = (int) Math.round(tile_px * MathUtils.COS_60);
+		int tileRealWidth = (int) Math.round(tilePX * MathUtils.SIN_60);
+		int tileRealHeight = (int) Math.round(tilePX * MathUtils.COS_60);
 		int[] xs = { realTileX, realTileX + tileRealWidth, realTileX,
 				realTileX - tileRealWidth };
 		int[] ys = { realTileY, realTileY + tileRealHeight,
@@ -146,9 +155,11 @@ public class IsometricMap implements Drawable {
 	}
 
 	public Point getMiddlePointOfTile(int column, int row) {
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
 		Tile tile = getTile(column, row);
 		return new Point(tile.getXs()[0], tile.getYs()[0]
-				+ (int) Math.round(tile_px * MathUtils.COS_60));
+				+ (int) Math.round(tilePX * MathUtils.COS_60));
 	}
 
 	public boolean mapContain(Point mouse) {
@@ -158,8 +169,10 @@ public class IsometricMap implements Drawable {
 	}
 
 	public void moveMapUp() {
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
 		int height = (int) mapPoly.getBounds().getHeight();
-		if (origin_y + height <= GameCanvas.HEIGHT - tile_px) {
+		if (origin_y + height <= GameCanvas.HEIGHT - tilePX) {
 			// origin_y = GameCanvas.HEIGHT - height;
 		} else {
 			origin_y -= MOVE_PX;
@@ -167,17 +180,21 @@ public class IsometricMap implements Drawable {
 	}
 
 	public void moveMapDown() {
-		if (origin_y >= tile_px) {
-			origin_y = tile_px;
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
+		if (origin_y >= tilePX) {
+			origin_y = (int) tilePX;
 		} else {
 			origin_y += MOVE_PX;
 		}
 	}
 
 	public void moveMapLeft() {
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
 		int width = (int) mapPoly.getBounds().getWidth();
-		if (origin_x + width / 2 <= GameCanvas.WIDTH - tile_px) {
-			// origin_x = GameCanvas.WIDTH - tile_px - width;
+		if (origin_x + width / 2 <= GameCanvas.WIDTH - tilePX) {
+			// origin_x = GameCanvas.WIDTH - tilePX - width;
 		} else {
 			origin_x -= MOVE_PX;
 		}
@@ -185,9 +202,11 @@ public class IsometricMap implements Drawable {
 	}
 
 	public void moveMapRight() {
+		float zoom = gameCanvas.getZoomLevel();
+		float tilePX = zoom * this.tile_px;
 		int width = (int) mapPoly.getBounds().getWidth();
-		if (origin_x - width / 2 >= tile_px) {
-			// origin_x = width/2 - tile_px;
+		if (origin_x - width / 2 >= tilePX) {
+			// origin_x = width/2 - tilePX;
 		} else {
 			origin_x += MOVE_PX;
 		}
@@ -207,5 +226,11 @@ public class IsometricMap implements Drawable {
 
 	public void setMoveMapHor(int moveMap) {
 		this.moveMapHor = moveMap;
+	}
+	public double getMapWidth(){
+		return mapPoly.getBounds().getWidth();
+	}
+	public double getMapHeight(){
+		return mapPoly.getBounds().getHeight();
 	}
 }

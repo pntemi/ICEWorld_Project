@@ -12,19 +12,15 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.PathIterator;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
-import java.nio.Buffer;
 
+import tiles.MatrixPoint;
 import character.Icetizen;
 
-import tiles.IsometricPoint;
-import tiles.MatrixPoint;
-import utils.MathUtils;
-
 public class GameCanvas extends Canvas implements Runnable {
+	private static final long serialVersionUID = -5919670754314540364L;
 	public static final int FPS = 60;
 	private final long OPTIMAL_TIME = 1000000000 / FPS; // 60fps
 	private final int MAX_UPDATES = 5;
@@ -32,14 +28,20 @@ public class GameCanvas extends Canvas implements Runnable {
 	public final static int HEIGHT = 800;
 	public final static int WIDTH = 900;
 
-	IsometricMap iso = new IsometricMap();
+	IsometricMap iso = new IsometricMap(this);
+	MiniMap mini;
 
 	private volatile boolean active = true;
 	private BufferStrategy buffer;
 	private Graphics graphics;
 
 	private Thread thread = null;
-	//temp 
+
+	private float zoomLevel = 1f;
+	public static final float ZOOM_STEP = 0.5f;
+	public static final float MIN_ZOOM = 1f;
+	public static final float MAX_ZOOM = 10f;
+	// temp
 	Icetizen ice;
 
 	public GameCanvas() {
@@ -74,7 +76,6 @@ public class GameCanvas extends Canvas implements Runnable {
 			}
 		});
 		addMouseListener(new MouseListener() {
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -104,6 +105,26 @@ public class GameCanvas extends Canvas implements Runnable {
 				clickAction(e.getPoint());
 			}
 		});
+		addMouseWheelListener(new MouseWheelListener() {
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				Point p = e.getPoint();
+				System.out.println("mouse point : " + p.x + "," + p.y);
+				if (e.getWheelRotation() < 0) { // rotate up/away
+					zoomLevel -= ZOOM_STEP;
+					if (zoomLevel < MIN_ZOOM)
+						zoomLevel = MIN_ZOOM;
+				} else if (e.getWheelRotation() > 0) { // rotate down/towards
+					zoomLevel += ZOOM_STEP;
+					if (zoomLevel > MAX_ZOOM)
+						zoomLevel = MAX_ZOOM;
+				}
+			}
+		});
+
+		//mini map
+		mini =new MiniMap(this);
+		
 		// temp
 		ice = new Icetizen();
 		ice.setLocation(new MatrixPoint(0, 0), iso);
@@ -187,6 +208,18 @@ public class GameCanvas extends Canvas implements Runnable {
 			MatrixPoint mp = iso.getMatrixPoint(mouse);
 			ice.setLocation(mp, iso);
 		}
+	}
+
+	public float getZoomLevel() {
+		return zoomLevel;
+	}
+
+	public void setZoomLevel(float zoomLevel) {
+		this.zoomLevel = zoomLevel;
+	}
+	
+	public MiniMap getMiniMap(){
+		return mini;
 	}
 
 }

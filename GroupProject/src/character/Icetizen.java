@@ -221,16 +221,19 @@ public class Icetizen implements MyIcetizen {
 				iceTile = iso.getTile(currLoc.getColumn(), currLoc.getRow());
 			}
 		}
-		
+
 		// tile draw
 		if (iceTile != null) {
 			g.setColor(Color.YELLOW);
 			g.fillPolygon(iceTile.getPolygon());
 		}
-		
+
+		charWidth = (int) currTileDist;
+		charHeight = (int) (currTileDist * 1.5);
+
 		// rectangle draw
 		g.setColor(Color.WHITE);
-		g.fillRect(currentX - charWidth / 2, currentY - charHeight, charWidth,
-				charHeight);
+		g.fillRect(currentX - (charWidth / 2), currentY - charHeight,
+				charWidth, charHeight);
 	}
 }
