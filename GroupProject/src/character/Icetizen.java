@@ -1,5 +1,6 @@
 package character;
 
+import gui.GameCanvas;
 import gui.IsometricMap;
 import iceworld.given.IcetizenLook;
 import iceworld.given.MyIcetizen;
@@ -107,20 +108,13 @@ public class Icetizen implements MyIcetizen {
 		this.timeStamp = timeStamp;
 	}
 
-	public void setLocation(MatrixPoint mp, IsometricMap iso) {
+	public void setLocation(MatrixPoint mp) {
 		Point p = new Point(mp.getColumn(), mp.getRow());
-		if (this.location != null) {
-			currDest = mp;
-			if (currLoc == null) {
-				leavingLoc = currLoc = mp;
-				Point loc = iso.getMiddlePointOfTile(currDest.getColumn(),
-						currDest.getRow());
-				currentX = loc.x;
-				currentY = loc.y;
-				iceTile = iso.getTile(currLoc.getColumn(), currLoc.getRow());
-			}
-			tileDist = iso.getTileDistance();
+		currDest = mp;
+		if (leavingLoc == null || currLoc == null) {
+			leavingLoc = currLoc = mp;
 		}
+		// tileDist = iso.getTileDistance();
 		this.location = p;
 	}
 
@@ -163,7 +157,10 @@ public class Icetizen implements MyIcetizen {
 	// animation
 	public void draw(Graphics g, IsometricMap iso) {
 		double currTileDist = iso.getTileDistance();
-		if (tileDist > 0) {
+		if (tileDist <= 0) {
+			tileDist = iso.getTileDistance();
+		}
+		if (tileDist > 0 && leavingLoc !=null) {
 			if (tileDist != currTileDist) {
 				accTileLen = accTileLen * (currTileDist / tileDist);
 				tileDist = currTileDist;

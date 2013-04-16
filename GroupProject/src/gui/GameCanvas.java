@@ -127,7 +127,7 @@ public class GameCanvas extends Canvas implements Runnable {
 		
 		// temp
 		ice = new Icetizen();
-		ice.setLocation(new MatrixPoint(0, 0), iso);
+		ice.setLocation(new MatrixPoint(10, 10));
 		IcetizenLook look = new IcetizenLook();
 		ice.setIcetizenLook(look);
 	}
@@ -206,7 +206,7 @@ public class GameCanvas extends Canvas implements Runnable {
 	private void clickAction(Point mouse) {
 		if (iso.mapContain(mouse)) {
 			MatrixPoint mp = iso.getMatrixPoint(mouse);
-			ice.setLocation(mp, iso);
+			ice.setLocation(mp);
 		}
 	}
 
