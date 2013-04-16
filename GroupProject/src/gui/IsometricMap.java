@@ -1,83 +1,211 @@
-
 package gui;
 
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.awt.Polygon;
+import java.util.Queue;
 
-import tiles.IsometricPoint;
-
+import tiles.MatrixPoint;
+import tiles.Tile;
+import utils.MathUtils;
 import addon.Drawable;
 
 public class IsometricMap implements Drawable {
-        private HashMap<Point, IsometricPoint> pointMap = null;
-        private int last_x, total_rows;
-        private Point mousePoint = null;
+	public static final int MAP_ROW = 100;
+	public static final int MAP_COLUMN = 100;
+	public static final double Z_ROTATION = -MathUtils.DEGREE_45;
+	public static final double COS_ROTATE = Math.cos(-MathUtils.DEGREE_45);
+	public static final double SIN_ROTATE = Math.sin(-MathUtils.DEGREE_45);
+	public static final double X_ADJUSTMENT = Math.sqrt(2.0 / 3.0);
+	public static final double Y_ADJUSTMENT = Math.sqrt(2.0);
+	public static final int MOVE_PX = 20;
+	public static final int MOVE_NONE = 0;
+	public static final int MOVE_RIGHT = 1;
+	public static final int MOVE_LEFT = 2;
+	public static final int MOVE_UP = 3;
+	public static final int MOVE_DOWN = 4;
 
-        public IsometricMap() {
-                generateBlankMap(20);
-        }
+	private int tile_px = 20;
+	private double tileDistance;
+	private int origin_x = 400;
+	private int origin_y = 20;
+	private Polygon mapPoly = null;
+	private Color mapBgColor = Color.BLACK;
+	private int moveMapVer = MOVE_NONE, moveMapHor = MOVE_NONE;
 
-        @Override
-        public synchronized void draw(Graphics g) {
-                if (pointMap == null)
-                        return;
-                for (int y = 0; y < total_rows; y++) {
-                        for (int x = last_x; x >= 0; x--) {
-                                Point p = new Point(x, y);
-                                IsometricPoint ip = pointMap.get(p);
-                                if (ip != null) {
-                                        if (mousePoint != null && ip.contains(mousePoint)) {
-                                                ip.setHighlight(true);
-                                        } else if (mousePoint != null) {
-                                                ip.setHighlight(false);
-                                        }
-                                        ip.draw(g);
-                                }
-                        }
-                }
-        }
+	private Point mousePoint = null;
 
-        private void generateBlankMap(int rows) {
-                pointMap = new HashMap<Point, IsometricPoint>();
+	public IsometricMap() {
+		// generateBlankMap(MAP_COLUMN, MAP_ROW);
+	}
 
-                int tmp_backwards = rows + 1;
+	@Override
+	public synchronized void draw(Graphics g) {
+		// if (mapPoly == null)
+		// return;
 
-                int tileRows = (rows * 2) - 1; // 9 rida kokku kui on 5x5 maatriks.
-                int lastX = rows - 1;
+		generateBlankMap(MAP_COLUMN, MAP_ROW);
+		g.setColor(mapBgColor);
+		g.fillPolygon(mapPoly);
+		if (mousePoint != null && mapPoly.contains(mousePoint)) {
+			drawHighlight(mousePoint, g);
+		}
+		moveMap();
+	}
 
-                boolean decrease = false;
+	private void moveMap() {
+		switch (moveMapHor) {
+		case MOVE_LEFT:
+			moveMapLeft();
+			break;
+		case MOVE_RIGHT:
+			moveMapRight();
+			break;
+		default:
+			break;
+		}
+		switch (moveMapVer) {
+		case MOVE_UP:
+			moveMapUp();
+			break;
+		case MOVE_DOWN:
+			moveMapDown();
+			break;
+		default:
+			break;
+		}
+	}
 
-                for (int y = 0; y < tileRows; y++) {
+	public void drawHighlight(Point mouse, Graphics g) {
+		MatrixPoint mp = getMatrixPoint(mouse);
+		g.setColor(Color.RED);
+		g.fillPolygon(getTile(mp.getColumn(), mp.getRow()).getPolygon());
+		g.drawString("column: " + mp.getColumn(), 0, 20);
+		g.drawString("row: " + mp.getRow(), 0, 40);
+	}
 
-                        if (y + 1 >= rows) {
-                                decrease = true;
-                                tmp_backwards--;
-                        }
+	private void generateBlankMap(int columns, int rows) {
+		int mapWidth = columns * this.tile_px;
+		int mapHeight = rows * this.tile_px;
+		int realWidth = (int) Math.round(mapWidth * Math.sin(Math.PI / 3));
+		int realHeight = (int) Math.round(mapHeight * Math.cos(Math.PI / 3));
 
-                        int tilesInRow = (y < rows - 1 ? y + 1 : (y + 1 == rows ? rows
-                                        : tmp_backwards));
+		int[] x = { origin_x, origin_x + realWidth, origin_x,
+				origin_x - realWidth };
+		int[] y = { origin_y, origin_y + realHeight, origin_y + realHeight * 2,
+				origin_y + realHeight };
 
-                        for (int x = 0; x < tilesInRow; x++) {
-                                int tmp_x = lastX + 2 * x;
-                                if (tmp_x > last_x) {
-                                        last_x = tmp_x;
-                                }
-                                Point tmp = new Point(tmp_x, y);
-                                pointMap.put(tmp, new IsometricPoint(tmp_x, y));
-                        }
-                        if (!decrease)
-                                lastX--;
-                        else
-                                lastX++;
-                }
-                total_rows = tileRows;
-        }
+		mapPoly = new Polygon(x, y, 4);
+		updateTileDistance();
+	}
 
-        public void setMousePoint(Point mouse) {
-                mousePoint = mouse;
-        }
+	public void setMousePoint(Point mouse) {
+		mousePoint = mouse;
+	}
+
+	public MatrixPoint getMatrixPoint(Point p) {
+		double x = X_ADJUSTMENT * (p.x - origin_x);
+		double y = Y_ADJUSTMENT * (p.y - origin_y);
+		double unrealX = x * Math.cos(Z_ROTATION) - y * Math.sin(Z_ROTATION);
+		double unrealY = x * Math.sin(Z_ROTATION) + y * Math.cos(Z_ROTATION);
+		return new MatrixPoint((int) (unrealX / tile_px),
+				(int) (unrealY / tile_px));
+	}
+
+	public Tile getTile(int column, int row) {
+		int tileX = column * this.tile_px;
+		int tileY = row * this.tile_px;
+		int realTileX = origin_x
+				+ (int) Math.round((tileX * Math.cos(-Z_ROTATION) - tileY
+						* Math.sin(-Z_ROTATION))
+						/ X_ADJUSTMENT);
+		int realTileY = origin_y
+				+ (int) Math.round((tileX * Math.sin(-Z_ROTATION) + tileY
+						* Math.cos(-Z_ROTATION))
+						/ Y_ADJUSTMENT);
+		int tileRealWidth = (int) Math.round(tile_px * MathUtils.SIN_60);
+		int tileRealHeight = (int) Math.round(tile_px * MathUtils.COS_60);
+		int[] xs = { realTileX, realTileX + tileRealWidth, realTileX,
+				realTileX - tileRealWidth };
+		int[] ys = { realTileY, realTileY + tileRealHeight,
+				realTileY + tileRealHeight * 2, realTileY + tileRealHeight };
+		Tile tile = new Tile(xs, ys);
+		return tile;
+	}
+
+	public void updateTileDistance() {
+		Tile tile1 = getTile(0, 0);
+		Tile tile2 = getTile(0, 1);
+		tileDistance = MathUtils.distance(tile1.getXs()[0], tile1.getYs()[0],
+				tile2.getXs()[0], tile2.getYs()[0]);
+	}
+
+	public double getTileDistance() {
+		return tileDistance;
+	}
+
+	public Point getMiddlePointOfTile(int column, int row) {
+		Tile tile = getTile(column, row);
+		return new Point(tile.getXs()[0], tile.getYs()[0]
+				+ (int) Math.round(tile_px * MathUtils.COS_60));
+	}
+
+	public boolean mapContain(Point mouse) {
+		if (mapPoly.contains(mouse))
+			return true;
+		return false;
+	}
+
+	public void moveMapUp() {
+		int height = (int) mapPoly.getBounds().getHeight();
+		if (origin_y + height <= GameCanvas.HEIGHT - tile_px) {
+			// origin_y = GameCanvas.HEIGHT - height;
+		} else {
+			origin_y -= MOVE_PX;
+		}
+	}
+
+	public void moveMapDown() {
+		if (origin_y >= tile_px) {
+			origin_y = tile_px;
+		} else {
+			origin_y += MOVE_PX;
+		}
+	}
+
+	public void moveMapLeft() {
+		int width = (int) mapPoly.getBounds().getWidth();
+		if (origin_x + width / 2 <= GameCanvas.WIDTH - tile_px) {
+			// origin_x = GameCanvas.WIDTH - tile_px - width;
+		} else {
+			origin_x -= MOVE_PX;
+		}
+
+	}
+
+	public void moveMapRight() {
+		int width = (int) mapPoly.getBounds().getWidth();
+		if (origin_x - width / 2 >= tile_px) {
+			// origin_x = width/2 - tile_px;
+		} else {
+			origin_x += MOVE_PX;
+		}
+	}
+
+	public int getMoveMapVer() {
+		return moveMapVer;
+	}
+
+	public void setMoveMapVer(int moveMap) {
+		this.moveMapVer = moveMap;
+	}
+
+	public int getMoveMapHor() {
+		return moveMapHor;
+	}
+
+	public void setMoveMapHor(int moveMap) {
+		this.moveMapHor = moveMap;
+	}
 }
